@@ -3,7 +3,20 @@ const cors = require("cors");
 const db = require("./db");
 
 const app = express();
-app.use(cors());
+
+// CORS 설정
+app.use(
+  cors({
+    origin: [
+      "https://main.d2n5k148zzb8mj.amplifyapp.com",
+      "http://localhost:3000",
+    ],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
 app.use(express.json());
 
 const PORT = process.env.PORT || 8080;
