@@ -117,6 +117,40 @@ app.get("/posts/:postId/comments", (req, res) => {
   });
 });
 
+/**
+ * DB 초기화 (모든 데이터 삭제)
+ */
+app.delete("/db/reset", (req, res) => {
+  // 모든 테이블의 데이터 삭제
+  db.serialize(() => {
+    db.run("DELETE FROM comments", (err) => {
+      if (err) {
+        return res
+          .status(500)
+          .json({ message: "댓글 삭제 실패", error: err.message });
+      }
+    });
+
+    db.run("DELETE FROM users", (err) => {
+      if (err) {
+        return res
+          .status(500)
+          .json({ message: "사용자 삭제 실패", error: err.message });
+      }
+    });
+
+    // SQLite의 AUTOINCREMENT 카운터도 리셋
+    db.run(
+      "DELETE FROM sqlite_sequence WHERE name IN ('users', 'comments')",
+      (err) => {
+        // sqlite_sequence 테이블이 없을 수도 있으므로 에러는 무시
+      }
+    );
+
+    res.json({ message: "DB 초기화 완료" });
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`BE 서버 실행중 http://localhost:${PORT}`);
 });
