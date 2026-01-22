@@ -36,7 +36,11 @@ app.post("/user", (req, res) => {
 
   db.run(query, [username], function (err) {
     if (err) {
-      return res.status(500).json({ message: "DB 저장 실패" });
+      console.error("DB 저장 에러:", err);
+      return res.status(500).json({
+        message: "DB 저장 실패",
+        error: err.message,
+      });
     }
 
     res.json({
@@ -60,7 +64,11 @@ app.get("/user", (req, res) => {
 
   db.get(query, (err, row) => {
     if (err) {
-      return res.status(500).json({ message: "DB 조회 실패" });
+      console.error("DB 조회 에러:", err);
+      return res.status(500).json({
+        message: "DB 조회 실패",
+        error: err.message,
+      });
     }
 
     if (!row) {
@@ -88,7 +96,11 @@ app.post("/posts/:postId/comments", (req, res) => {
 
   db.run(query, [postId, username, content], function (err) {
     if (err) {
-      return res.status(500).json({ message: "댓글 저장 실패" });
+      console.error("댓글 저장 에러:", err);
+      return res.status(500).json({
+        message: "댓글 저장 실패",
+        error: err.message,
+      });
     }
 
     res.json({
@@ -110,7 +122,11 @@ app.get("/posts/:postId/comments", (req, res) => {
 
   db.all(query, [postId], (err, rows) => {
     if (err) {
-      return res.status(500).json({ message: "댓글 조회 실패" });
+      console.error("댓글 조회 에러:", err);
+      return res.status(500).json({
+        message: "댓글 조회 실패",
+        error: err.message,
+      });
     }
 
     res.json(rows);
