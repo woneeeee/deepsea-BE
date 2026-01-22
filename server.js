@@ -5,16 +5,16 @@ const db = require("./db");
 const app = express();
 
 // CORS 설정
-app.use(
-  cors({
-    origin: [
-      "https://main.d2n5k148zzb8mj.amplifyapp.com",
-      "http://localhost:3000",
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+// app.use(
+//   cors({
+//     origin: [
+//       "https://main.d2n5k148zzb8mj.amplifyapp.com",
+//       "http://localhost:3000",
+//     ],
+//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//   })
+// );
 
 app.use(express.json());
 
