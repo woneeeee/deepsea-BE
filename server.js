@@ -6,6 +6,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const PORT = process.env.PORT || 8080;
+
 /**
  * 1️⃣ 사용자 이름 저장
  */
@@ -103,6 +105,6 @@ app.get("/posts/:postId/comments", (req, res) => {
   });
 });
 
-app.listen(8080, () => {
-  console.log("BE 서버 실행중 http://localhost:8080");
+app.listen(PORT, () => {
+  console.log(`BE 서버 실행중 http://localhost:${PORT}`);
 });
